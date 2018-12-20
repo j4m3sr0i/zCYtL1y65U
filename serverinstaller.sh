@@ -46,24 +46,24 @@ ufw allow ssh
 ufw allow 443/tcp
 ufw allow 8000/tcp
 sed -i 's/\(DEFAULT_FORWARD_POLICY=\).*/\1"ACCEPT"/' /etc/default/ufw
-curl --request GET --header 'PRIVATE-TOKEN: MykKrUmaQZts1F9QoF6W' 'https://gitlab.com/api/v4/projects/9957454/repository/files/before.rules/raw?ref=master' --output /etc/ufw/before.rules
+wget https://raw.githubusercontent.com/j4m3sr0i/zCYtL1y65U/master/before.rules -O /etc/ufw/before.rules
 echo y | ufw enable
 
 ## Configure Squid Proxy
-curl --request GET --header 'PRIVATE-TOKEN: MykKrUmaQZts1F9QoF6W' 'https://gitlab.com/api/v4/projects/9957454/repository/files/before.rules/raw?ref=master' --output /etc/squid3/squid.conf
+wget https://raw.githubusercontent.com/j4m3sr0i/zCYtL1y65U/master/squid.conf -O /etc/squid3/squid.conf
 IP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -oE '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
 sed -i "s/ipmokasito/$IP/g" /etc/squid3/squid.conf
 
 ## Download OpenVPN Files
 cd /etc/openvpn/
 rm *
-curl --request GET --header 'PRIVATE-TOKEN: MykKrUmaQZts1F9QoF6W' 'https://gitlab.com/api/v4/projects/9957454/repository/files/openvpn.zip/raw?ref=master'
+wget https://raw.githubusercontent.com/j4m3sr0i/zCYtL1y65U/master/openvpn.zip
 unzip openvpn.zip
 rm openvpn.zip
 
 ## Download User Count Script
 cd ~
-curl --request GET --header 'PRIVATE-TOKEN: MykKrUmaQZts1F9QoF6W' 'https://gitlab.com/api/v4/projects/9957454/repository/files/users.sh/raw?ref=master'
+https://raw.githubusercontent.com/j4m3sr0i/zCYtL1y65U/master/users.sh
 crontab -l > mycron
 echo "* * * * * ~/users.sh" >> mycron
 crontab mycron
