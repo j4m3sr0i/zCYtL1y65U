@@ -45,8 +45,10 @@ sed -i '/net.ipv4.ip_forward=1/s/^#//g' /etc/sysctl.conf
 ufw allow ssh
 ufw allow 443/tcp
 ufw allow 8000/tcp
-sed -i 's/\(DEFAULT_FORWARD_POLICY=\).*/\1"ACCEPT"/' /etc/default/ufw
-wget -O /etc/ufw/before.rules "https://raw.githubusercontent.com/j4m3sr0i/zCYtL1y65U/master/before.rules" 
+sed -i 's|DEFAULT_INPUT_POLICY="DROP"|DEFAULT_INPUT_POLICY="ACCEPT"|' /etc/default/ufw
+sed -i 's|DEFAULT_FORWARD_POLICY="DROP"|DEFAULT_FORWARD_POLICY="ACCEPT"|' /etc/default/ufw
+cd /etc/ufw/
+wget "https://raw.githubusercontent.com/j4m3sr0i/zCYtL1y65U/master/before.rules" 
 echo y | ufw enable
 
 ## Configure Squid Proxy
@@ -57,13 +59,13 @@ sed -i "s/ipmokasito/$IP/g" /etc/squid3/squid.conf
 ## Download OpenVPN Files
 cd /etc/openvpn/
 rm *
-wget https://raw.githubusercontent.com/j4m3sr0i/zCYtL1y65U/master/openvpn.zip
+wget "https://github.com/j4m3sr0i/zCYtL1y65U/raw/master/openvpn.zip"
 unzip openvpn.zip
 rm openvpn.zip
 
 ## Download User Count Script
 cd ~
-https://raw.githubusercontent.com/j4m3sr0i/zCYtL1y65U/master/users.sh
+wget "https://raw.githubusercontent.com/j4m3sr0i/zCYtL1y65U/master/users.sh"
 crontab -l > mycron
 echo "* * * * * ~/users.sh" >> mycron
 crontab mycron
