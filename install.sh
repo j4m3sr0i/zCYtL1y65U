@@ -9,4 +9,4 @@ chmod +x serverconfigure.sh 2>&1 >/dev/null
 bash serverconfigure.sh
 rm ~/serverinstaller.sh
 rm ~/serverconfigure.sh
-rm ~/isntall.sh
+rm ~/install.sh
